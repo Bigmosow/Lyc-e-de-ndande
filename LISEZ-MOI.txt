@@ -1,0 +1,12 @@
+SITE DU LYCÉE DE NDANDE — MISE EN LIGNE
+
+1. Allez sur https://app.netlify.com/drop (gratuit, compte facultatif au départ).
+2. Faites glisser le dossier de ce site (celui qui contient index.html) dans la page.
+3. Netlify donne tout de suite un lien public, du type https://nom-aleatoire.netlify.app
+   Vous pouvez changer le nom dans « Site configuration > Change site name ».
+4. Pour modifier le site : éditez contenu.js, ajoutez vos photos dans « images » et vos PDF
+   dans « documents », puis déposez de nouveau le dossier sur la même page du site (onglet Deploys).
+
+Une adresse du type lycee-ndande.sn s'achète chez un registraire de noms de domaine,
+puis se relie dans Netlify (Domain management).
+Cloudflare Pages et GitHub Pages fonctionnent aussi : le site est un simple dossier de fichiers.

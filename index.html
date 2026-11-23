@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Plateforme numérique du Lycée de Ndande : actualités, bibliothèque, vie scolaire, projets des élèves.">
+<title>Lycée de Ndande</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Concept : vitrine institutionnelle verte et dorée, motif de triangles tissés, bandeau d’accueil sombre, contenu clair en cartes sobres. */
+:root{
+  --bg:#F4EFE3; --surface:#FFFDF8; --soft:#EBE4D1; --fg:#15261E; --muted:#58695F; --line:#D9D0BA;
+  --primary:#0E3B2C; --on-primary:#F4EFE3; --accent:#C48F25; --on-accent:#1B1405;
+  --link:#0E5A41; --btn:#0E3B2C; --btn-ink:#F4EFE3; --danger:#A32B1F;
+  --display:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --body:'Public Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M0 56L28 0l28 56z M14 28h28' fill='none' stroke='%23D9A93A' stroke-opacity='.16' stroke-width='1'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1812; --surface:#112419; --soft:#15291F; --fg:#ECE7DA; --muted:#9DAFA4; --line:#223A2E;
+    --primary:#143F30; --on-primary:#F1ECDF; --accent:#E0B04A;
+    --link:#8FD4B2; --btn:#1F7355; --btn-ink:#F6F2E8; --danger:#F0907F; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1812; --surface:#112419; --soft:#15291F; --fg:#ECE7DA; --muted:#9DAFA4; --line:#223A2E;
+  --primary:#143F30; --on-primary:#F1ECDF; --accent:#E0B04A;
+  --link:#8FD4B2; --btn:#1F7355; --btn-ink:#F6F2E8; --danger:#F0907F; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance}
+a{color:var(--link)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1160px;margin-left:auto;margin-right:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ic{display:inline-flex;width:1.25em;height:1.25em;flex:none}
+.ic svg{width:100%;height:100%}
+.muted{color:var(--muted)}
+
+/* En-tête */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
+.hd-top{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font:700 1.2rem var(--display);color:var(--fg);text-decoration:none;margin-right:auto}
+.brand svg{width:34px;height:34px;flex:none}
+.search{position:relative;flex:1 1 220px;max-width:340px}
+.search .ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);width:1.1em;height:1.1em}
+.search input{padding-left:36px}
+.menu-btn{display:none;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;font:600 .9rem var(--body);cursor:pointer}
+nav.main{border-top:1px solid var(--line)}
+nav.main ul{list-style:none;margin:0;padding:0;display:flex;gap:2px;flex-wrap:wrap}
+nav.main a{display:block;padding:11px 12px;font-weight:500;font-size:.95rem;color:var(--fg);text-decoration:none;border-bottom:3px solid transparent}
+nav.main a:hover{border-color:var(--line)}
+nav.main a[aria-current="page"]{border-color:var(--accent);font-weight:600}
+@media (max-width:860px){
+  .menu-btn{display:inline-flex}
+  nav.main{display:none}
+  nav.main.open{display:block}
+  nav.main ul{flex-direction:column}
+  .search{order:3;max-width:none;flex-basis:100%}
+}
+
+/* Contrôles */
+input,select,textarea{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:9px 11px;width:100%;min-width:0}
+textarea{resize:vertical}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:6px;font:600 .95rem var(--body);text-decoration:none;border:1px solid var(--btn);cursor:pointer;background:var(--btn);color:var(--btn-ink)}
+.btn.gold{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:transparent;border-color:currentColor;color:inherit}
+.btn.small{padding:7px 12px;font-size:.85rem}
+.btn.danger{background:transparent;color:var(--danger);border-color:var(--danger)}
+.btn[disabled]{opacity:.6;cursor:default}
+.fld{display:flex;flex-direction:column;gap:5px;font-size:.88rem;font-weight:500;min-width:0}
+.fld span{color:var(--muted)}
+.filters{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);font:500 .88rem var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--btn);color:var(--btn-ink);border-color:var(--btn)}
+
+/* Bandeaux */
+.hero,.page-head{background-color:var(--primary);background-image:var(--pattern);color:var(--on-primary)}
+.hero{padding-top:clamp(36px,7vw,84px);padding-bottom:clamp(36px,7vw,84px)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:28px}}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.hero h1{font-size:clamp(2.5rem,7vw,4.5rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px}
+.hero .lead{font-size:1.15rem;max-width:34em;margin:0 0 26px;opacity:.92}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero .btn.ghost{color:var(--on-primary)}
+.hero-frame{aspect-ratio:4/3;max-width:100%;width:100%;border:1px solid rgba(255,255,255,.22);border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;text-align:center;background-color:rgba(0,0,0,.18);background-image:var(--pattern);font-size:.9rem;opacity:.95;padding:16px}
+.hero-frame .ic{width:44px;height:44px;color:var(--accent)}
+.hero-frame img{width:100%;height:100%;object-fit:cover;max-width:none}
+.page-head{padding-top:34px;padding-bottom:34px}
+.page-head h1{margin:0 0 8px;font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.08;letter-spacing:-.015em}
+.page-head p{margin:0;max-width:56ch;opacity:.9}
+
+/* Sections */
+.sec{padding-top:clamp(34px,6vw,60px);padding-bottom:clamp(34px,6vw,60px)}
+.alt{background:var(--soft)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 20px;margin-bottom:24px;flex-wrap:wrap}
+h2{font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.15;letter-spacing:-.01em;margin:0}
+.sec-head p{margin:6px 0 0;color:var(--muted);max-width:54ch}
+.more{font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.more:hover{text-decoration:underline}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr))}
+.two{display:grid;gap:36px;grid-template-columns:1fr 1fr}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:8px;min-width:0;color:var(--fg);text-decoration:none}
+a.card:hover{border-color:var(--accent)}
+.card h3{margin:0;font-size:1.12rem;line-height:1.25}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card .foot{margin-top:auto;padding-top:8px;font-size:.85rem;color:var(--muted)}
+.card .sub{font-size:.88rem}
+.meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--link)}
+.ex-badge{font-size:.7rem;font-weight:600;border:1px dashed var(--muted);color:var(--muted);padding:1px 7px;border-radius:999px}
+.soon{font-size:.88rem;color:var(--muted);margin-top:auto;padding-top:6px}
+.short{display:flex;flex-direction:row;align-items:flex-start;gap:14px}
+.short .ic{width:30px;height:30px;color:var(--link);margin-top:2px}
+.short .bd{display:flex;flex-direction:column;gap:4px;min-width:0}
+.prov{border:1px dashed var(--muted);border-radius:6px;padding:18px 20px;background:var(--surface)}
+.prov .lbl{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.prov h3{margin:4px 0 6px;font-size:1.15rem}
+.prov p{margin:0;color:var(--muted)}
+.stack{display:grid;gap:16px}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.ev{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.ev .d{flex:none;min-width:86px;font:600 .9rem var(--display);color:var(--link)}
+.ev h3{margin:0 0 4px;font-size:1.05rem}
+.ev p{margin:0;color:var(--muted);font-size:.92rem}
+.values{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.values .card h3{color:var(--link)}
+.gal{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr))}
+.gal figure{margin:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.gal .ph{aspect-ratio:4/3;background-color:var(--soft);background-image:var(--pattern);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.gal img{aspect-ratio:4/3;width:100%;object-fit:cover}
+.gal figcaption{padding:8px 12px;font-size:.85rem;color:var(--muted)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:0 18px}
+details+details{margin-top:10px}
+summary{cursor:pointer;padding:16px 0;font:600 1.05rem var(--display);list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"–"}
+details .bd{padding-bottom:16px;color:var(--muted)}
+details ul{margin:8px 0 0;padding-left:20px}
+.article{max-width:68ch}
+.article p{margin:0 0 1em}
+.back{display:inline-flex;gap:6px;margin-bottom:18px;font-weight:600;text-decoration:none}
+.status{margin:0;font-size:.9rem;min-height:1.3em}
+.status.err{color:var(--danger)}
+.aform{display:grid;gap:14px;max-width:640px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px}
+.alist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.alist li{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.alist .ai{display:flex;flex-direction:column;gap:2px;min-width:0;overflow-wrap:anywhere}
+.alist .tx{white-space:pre-wrap;margin-top:4px}
+.res-count{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+
+/* Pied de page */
+.site-footer{background:var(--primary);background-image:var(--pattern);color:var(--on-primary);padding-top:40px;padding-bottom:26px;margin-top:0}
+.foot-grid{display:grid;gap:28px;grid-template-columns:1.2fr 1fr 1fr}
+@media (max-width:860px){.foot-grid{grid-template-columns:1fr}}
+.site-footer h3{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px;color:var(--accent)}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.site-footer a{color:var(--on-primary)}
+.site-footer p{margin:0 0 8px;opacity:.9}
+.fb{font:700 1.3rem var(--display)}
+.legal{margin-top:26px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2);font-size:.85rem;opacity:.85}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap hd-top">
+    <a class="brand" href="#accueil" aria-label="Lycée de Ndande, accueil">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><path d="M17 2l13 4.5V16c0 8.2-5.4 13.6-13 16C9.4 29.600 4 24.200 4 16V6.500z" fill="var(--primary)"/><path d="M17 11.500c-2-1.600-4.600-2-7-1.600v10.600c2.400-.4 5 0 7 1.600 2-1.600 4.600-2 7-1.600V9.900c-2.400-.4-5 0-7 1.600zM17 11.500v10.600" fill="none" stroke="#D9A93A" stroke-width="1.500" stroke-linejoin="round"/></svg>
+      <span>Lycée de Ndande</span>
+    </a>
+    <form class="search" role="search" id="searchForm">
+      <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg></span>
+      <input id="searchInput" type="search" placeholder="Rechercher un cours, une actualité…" aria-label="Recherche dans le site" autocomplete="off">
+    </form>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">Menu</button>
+  </div>
+  <nav class="main" id="mainNav" aria-label="Navigation principale"><div class="wrap"><ul id="navList"></ul></div></nav>
+</header>
+
+<main id="app"></main>
+
+<footer class="site-footer">
+  <div class="wrap foot-grid">
+    <div><div class="fb">Lycée de Ndande</div><p>Plateforme numérique de l’établissement : actualités, ressources pédagogiques et vie du lycée.</p></div>
+    <div><h3>Rubriques</h3><ul id="footNav"></ul></div>
+    <div><h3>Contact</h3><p>Coordonnées officielles à renseigner.</p><span id="footContact"></span></div>
+  </div>
+  <div class="wrap legal">Les contenus signalés « Exemple » ou « À compléter » sont provisoires. Ils sont à remplacer par des informations validées par l’administration du lycée.</div>
+</footer>
+
+<script src="contenu.js"></script>
+<script>
+(function(){
+'use strict';
+document.documentElement.lang='fr';
+var $=function(s,r){return (r||document).querySelector(s)};
+var app=$('#app');
+
+/* ---------- outils ---------- */
+function h(tag,a){
+  var e=document.createElement(tag), k=[].slice.call(arguments,2).flat(Infinity);
+  if(a){Object.keys(a).forEach(function(key){
+    var v=a[key]; if(v==null||v===false) return;
+    if(key==='class') e.className=v;
+    else if(key.indexOf('on')===0) e.addEventListener(key.slice(2),v);
+    else e.setAttribute(key,v===true?'':v);
+  });}
+  k.forEach(function(c){ if(c==null||c===false) return; e.append(c.nodeType?c:document.createTextNode(c)); });
+  return e;
+}
+var ICON={
+  school:'M3 10l9-6 9 6M5 10v9h14v-9M9 19v-5h6v5',
+  news:'M5 4h11a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2V4zM18 9h2v9a2 2 0 0 1-2 2M8 8h6M8 12h6M8 16h4',
+  book:'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5zM8 7h7M8 11h7',
+  cap:'M2 9l10-5 10 5-10 5-10-5zM6 11v5c3 2 9 2 12 0v-5',
+  users:'M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3 3-5 6-5s6 2 6 5M17 11a2.5 2.5 0 1 0 0-5M16 15c3 0 6 1.500 6 5',
+  spark:'M12 3l2.200 5.600L20 11l-5.800 2.400L12 19l-2.200-5.600L4 11l5.800-2.400L12 3z',
+  mail:'M3 6h18v12H3zM3 7l9 7 9-7',
+  cal:'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+  file:'M6 3h8l4 4v14H6zM14 3v4h4',
+  arrow:'M5 12h14M13 6l6 6-6 6',
+  pin:'M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11zM12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+  image:'M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4M9 9.500h.01'
+};
+function ic(n){var s=document.createElement('span');s.className='ic';s.setAttribute('aria-hidden','true');s.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+ICON[n]+'"/></svg>';return s;}
+function norm(s){return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();}
+function fmtDate(d){
+  if(!d) return 'Date à préciser';
+  var x=new Date(d+'T00:00:00'); if(isNaN(x)) return d;
+  return x.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+}
+function excerpt(s){s=String(s||'').replace(/\s+/g,' ').trim();return s.length>150?s.slice(0,147)+'…':s;}
+function exBadge(){return h('span',{class:'ex-badge'},'Exemple');}
+
+/* ---------- constantes ---------- */
+var NAV=[['accueil','Accueil'],['lycee','Le lycée'],['actualites','Actualités'],['eleves','Espace élèves'],['bibliotheque','Bibliothèque'],['vie-scolaire','Vie scolaire'],['projets','Projets & talents'],['contact','Contact']];
+var LEVELS=['Seconde','Première','Terminale','Autre'];
+var SUBJECTS=['Mathématiques','Physique-Chimie','SVT','Français','Philosophie','Histoire-Géographie','Anglais','Autre'];
+var TYPES=['Cours','Exercices','Sujets et devoirs','Fiches de révision','Préparation aux examens'];
+var CATS=['Annonces','Informations scolaires','Résultats et distinctions','Événements','Activités'];
+var DOMAINS=['Art et culture','Innovation et numérique','Sport','Entrepreneuriat','Sciences','Engagement communautaire'];
+var COLS=['news','events','resources','projects','gallery'];
+
+/* ---------- contenus provisoires (affichés tant qu’aucun contenu réel n’existe) ---------- */
+var EX={
+  news:[
+    {id:'ex-n1',ex:1,category:'Annonces',date:'',title:'Les annonces officielles seront publiées ici',body:'Ceci est un article d’exemple.\n\nL’administration du lycée pourra y publier les dates importantes, les consignes et les documents utiles aux élèves et aux familles.'},
+    {id:'ex-n2',ex:1,category:'Résultats et distinctions',date:'',title:'Résultats et distinctions des élèves',body:'Ceci est un article d’exemple.\n\nCette catégorie mettra en avant les réussites aux examens, les prix et les concours.'},
+    {id:'ex-n3',ex:1,category:'Activités',date:'',title:'Les activités du lycée en images et en mots',body:'Ceci est un article d’exemple.\n\nCompte rendu d’une journée culturelle, d’un tournoi sportif ou d’une cérémonie.'}
+  ],
+  events:[
+    {id:'ex-e1',ex:1,title:'Réunion d’information',date:'',place:'Lieu à préciser',desc:'Exemple d’événement à venir.'},
+    {id:'ex-e2',ex:1,title:'Journée culturelle et sportive',date:'',place:'Lieu à préciser',desc:'Exemple d’événement à venir.'},
+    {id:'ex-e3',ex:1,title:'Cérémonie de remise de distinctions',date:'',place:'Lieu à préciser',desc:'Exemple d’événement à venir.'}
+  ],
+  resources:[
+    {id:'ex-r1',ex:1,title:'Fiche de cours de mathématiques',level:'Terminale',subject:'Mathématiques',type:'Cours'},
+    {id:'ex-r2',ex:1,title:'Série d’exercices de physique-chimie',level:'Première',subject:'Physique-Chimie',type:'Exercices'},
+    {id:'ex-r3',ex:1,title:'Sujet d’entraînement de français',level:'Seconde',subject:'Français',type:'Sujets et devoirs'},
+    {id:'ex-r4',ex:1,title:'Fiche de révision de SVT',level:'Terminale',subject:'SVT',type:'Fiches de révision'}
+  ],
+  projects:[
+    {id:'ex-p1',ex:1,title:'Club de lecture',student:'Élèves à renseigner',domain:'Art et culture',desc:'Exemple de projet : des élèves partagent leurs lectures et organisent des rencontres.'},
+    {id:'ex-p2',ex:1,title:'Atelier d’initiation au numérique',student:'Élèves à renseigner',domain:'Innovation et numérique',desc:'Exemple de projet : initiation aux outils numériques pour les camarades.'},
+    {id:'ex-p3',ex:1,title:'Opération de nettoyage du quartier',student:'Élèves à renseigner',domain:'Engagement communautaire',desc:'Exemple de projet : une action citoyenne menée par les élèves.'}
+  ],
+  gallery:[1,2,3,4,5,6].map(function(i){return {id:'ex-g'+i,ex:1,caption:'Photo à ajouter'};})
+};
+
+/* ---------- état ---------- */
+var DB={news:[],events:[],resources:[],projects:[],gallery:[]};
+var SORT={
+  news:function(a,b){return String(b.date||'').localeCompare(String(a.date||''))||(b.ts||0)-(a.ts||0);},
+  events:function(a,b){return String(a.date||'9999').localeCompare(String(b.date||'9999'));},
+  resources:function(a,b){return (b.ts||0)-(a.ts||0);},
+  projects:function(a,b){return (b.ts||0)-(a.ts||0);},
+  gallery:function(a,b){return (b.ts||0)-(a.ts||0);},
+  messages:function(a,b){return (b.ts||0)-(a.ts||0);}
+};
+var SITE=Object.assign({news:[],events:[],resources:[],projects:[],gallery:[],hero:'',contact:{}},window.SITE_CONTENT||{});
+SITE.contact=SITE.contact||{};
+var hero=SITE.hero||null, searchQ='';
+var F={news:'Toutes',lib:{q:'',level:'',subject:'',type:''},proj:'Tous'};
+var AT='news';
+function items(k){return DB[k].length?DB[k]:EX[k];}
+
+/* ---------- composants ---------- */
+function pageHead(t,p){return h('div',{class:'page-head'},h('div',{class:'wrap'},h('h1',null,t),p&&h('p',null,p)));}
+function sec(alt,head,body){return h('section',{class:'sec'+(alt?' alt':'')},h('div',{class:'wrap'},head,body));}
+function secHead(t,lead,link,href){
+  return h('div',{class:'sec-head'},h('div',null,h('h2',null,t),lead&&h('p',null,lead)),link&&h('a',{class:'more',href:href},link,ic('arrow')));
+}
+function prov(t,p){return h('div',{class:'prov'},h('span',{class:'lbl'},'À compléter'),h('h3',null,t),h('p',null,p));}
+function newsCard(n){
+  return h('a',{class:'card',href:'#article-'+n.id},
+    h('div',{class:'meta'},h('span',{class:'tag'},n.category||'Actualité'),n.ex&&exBadge()),
+    h('h3',null,n.title),h('p',null,excerpt(n.body)),h('span',{class:'foot'},fmtDate(n.date)));
+}
+function resCard(r){
+  return h('article',{class:'card'},
+    h('div',{class:'meta'},h('span',{class:'tag'},r.type||'Document'),r.ex&&exBadge()),
+    h('h3',null,r.title),h('p',{class:'sub'},[r.level,r.subject].filter(Boolean).join(' · ')),
+    r.url?h('a',{class:'btn small',href:r.url,target:'_blank',rel:'noopener'},ic('file'),'Ouvrir le document'):h('span',{class:'soon'},'Document à venir'));
+}
+function projCard(p){
+  return h('article',{class:'card'},
+    h('div',{class:'meta'},h('span',{class:'tag'},p.domain||'Projet'),p.ex&&exBadge()),
+    h('h3',null,p.title),h('p',null,p.desc),h('span',{class:'foot'},p.student||''));
+}
+function eventRow(e){
+  return h('li',null,h('div',{class:'ev'},h('div',{class:'d'},fmtDate(e.date)),h('div',null,h('h3',null,e.title,' ',e.ex&&exBadge()),h('p',null,[e.place,e.desc].filter(Boolean).join(' · ')))));
+}
+function upcoming(){
+  var today=new Date().toISOString().slice(0,10);
+  return items('events').filter(function(e){return !e.date||e.date>=today;}).sort(SORT.events);
+}
+function empty(t){return h('p',{class:'muted'},t);}
+
+/* ---------- pages ---------- */
+var PAGES={};
+
+PAGES.accueil=function(){
+  var frame=hero
+    ?h('div',{class:'hero-frame'},h('img',{src:hero,alt:'Photographie du Lycée de Ndande'}))
+    :h('div',{class:'hero-frame'},ic('image'),h('span',null,'Emplacement de la photographie du lycée'));
+  var shortcuts=[
+    ['actualites','news','Actualités','Annonces, résultats et événements du lycée.'],
+    ['bibliotheque','book','Bibliothèque numérique','Cours, exercices et sujets par niveau et matière.'],
+    ['eleves','cap','Espace élèves','Conseils, orientation et préparation des examens.'],
+    ['vie-scolaire','users','Vie scolaire','Sport, culture, clubs et galerie photo.'],
+    ['projets','spark','Projets & talents','Les initiatives des élèves.'],
+    ['lycee','school','Le lycée','Présentation, mission et équipe.']
+  ];
+  var news=items('news').slice().sort(SORT.news).slice(0,3);
+  var ev=upcoming().slice(0,3);
+  var res=items('resources').slice(0,4);
+  var pr=items('projects').slice(0,3);
+  return h('div',null,
+    h('section',{class:'hero'},h('div',{class:'wrap hero-grid'},
+      h('div',null,
+        h('p',{class:'eyebrow'},'Plateforme numérique'),
+        h('h1',null,'Lycée de Ndande'),
+        h('p',{class:'lead'},'Apprendre aujourd’hui pour bâtir demain. Retrouvez ici les actualités, les cours et les talents du lycée.'),
+        h('div',{class:'cta'},h('a',{class:'btn gold',href:'#lycee'},'Découvrir le lycée'),h('a',{class:'btn ghost',href:'#bibliotheque'},'Ouvrir la bibliothèque'))),
+      frame)),
+    sec(false,secHead('Aller à l’essentiel'),h('div',{class:'grid'},shortcuts.map(function(s){
+      return h('a',{class:'card short',href:'#'+s[0]},ic(s[1]),h('div',{class:'bd'},h('h3',null,s[2]),h('p',null,s[3])));
+    }))),
+    sec(true,secHead('Dernières actualités',null,'Toutes les actualités','#actualites'),h('div',{class:'grid'},news.map(newsCard))),
+    sec(false,secHead('Événements à venir',null,'Vie scolaire','#vie-scolaire'),ev.length?h('ul',{class:'list'},ev.map(eventRow)):empty('Aucun événement à venir pour le moment.')),
+    sec(true,secHead('Ressources pédagogiques',null,'Toute la bibliothèque','#bibliotheque'),h('div',{class:'grid'},res.map(resCard))),
+    sec(false,secHead('Projets et talents',null,'Tous les projets','#projets'),h('div',{class:'grid'},pr.map(projCard)))
+  );
+};
+
+PAGES.lycee=function(){
+  return h('div',null,pageHead('Le lycée','Présentation de l’établissement, de son histoire et de ses valeurs.'),
+    sec(false,secHead('Présentation générale'),h('div',{class:'stack'},
+      prov('Présentation de l’établissement','Texte à rédiger avec l’administration : situation, effectifs, enseignements, ambitions.'),
+      prov('Historique du lycée','Date de création, grandes étapes, anciens élèves marquants. À rédiger à partir de sources validées.'))),
+    sec(true,secHead('Mission et valeurs','Texte provisoire, à confirmer par l’établissement.'),h('div',{class:'values'},
+      [['Excellence','Donner à chaque élève les moyens de réussir.'],['Respect','Apprendre ensemble dans un climat de confiance.'],['Solidarité','S’entraider et agir pour la communauté.'],['Ouverture','Préparer les élèves à un monde en mouvement.']].map(function(v){
+        return h('div',{class:'card'},h('h3',null,v[0]),h('p',null,v[1]));}))),
+    sec(false,secHead('Administration et équipe'),h('div',{class:'grid'},
+      prov('Administration','Noms et fonctions de la direction et de la vie scolaire, à fournir par l’établissement.'),
+      prov('Équipe pédagogique','Enseignants et personnel, uniquement avec des informations validées.'),
+      prov('Filières et enseignements','Séries, options et programmes, à renseigner selon les informations officielles.')))
+  );
+};
+
+PAGES.actualites=function(){
+  var list=items('news').slice().sort(SORT.news);
+  var cats=['Toutes'].concat(CATS);
+  var shown=list.filter(function(n){return F.news==='Toutes'||n.category===F.news;});
+  return h('div',null,pageHead('Actualités','Annonces officielles, résultats, événements et activités du lycée.'),
+    sec(false,null,h('div',null,
+      h('div',{class:'chips',role:'group','aria-label':'Catégories'},cats.map(function(c){
+        return h('button',{class:'chip',type:'button','aria-pressed':String(F.news===c),onclick:function(){F.news=c;render(false);}},c);})),
+      shown.length?h('div',{class:'grid'},shown.map(newsCard)):empty('Aucune actualité dans cette catégorie.'))));
+};
+
+PAGES.article=function(id){
+  var n=items('news').find(function(x){return x.id===id;});
+  if(!n) return h('div',null,pageHead('Article introuvable'),sec(false,null,h('a',{class:'back more',href:'#actualites'},'Retour aux actualités')));
+  return h('div',null,pageHead(n.title,[n.category,fmtDate(n.date)].filter(Boolean).join(' · ')),
+    sec(false,null,h('div',{class:'article'},
+      h('a',{class:'back more',href:'#actualites'},'← Retour aux actualités'),
+      n.ex&&h('p',null,exBadge(),' Article d’exemple, à remplacer.'),
+      String(n.body||'').split(/\n{2,}/).map(function(p){return h('p',null,p);}))));
+};
+
+PAGES.eleves=function(){
+  var ann=items('news').filter(function(n){return n.category==='Annonces'||n.category==='Informations scolaires';}).sort(SORT.news).slice(0,3);
+  if(!ann.length) ann=items('news').slice(0,3);
+  function tip(t,list,note){return h('details',null,h('summary',null,t),h('div',{class:'bd'},h('ul',null,list.map(function(x){return h('li',null,x);})),note&&h('p',null,note)));}
+  return h('div',null,pageHead('Espace élèves','Informations pratiques et conseils pour réussir son année.'),
+    sec(false,secHead('Informations et annonces',null,'Toutes les actualités','#actualites'),h('div',{class:'grid'},ann.map(newsCard))),
+    sec(true,secHead('Conseils pour réussir','Des conseils généraux, valables pour tous les élèves.'),h('div',null,
+      tip('Conseils scolaires',['Planifier sa semaine : un créneau de travail fixe chaque jour.','Relire ses cours le soir même, même 15 minutes.','Poser ses questions en classe plutôt que de les garder.','Travailler à plusieurs pour expliquer et se faire expliquer.']),
+      tip('Orientation et choix de parcours',['Repérer les matières où l’on progresse et celles qui donnent envie.','Parler aux enseignants et aux anciens élèves.','Se renseigner tôt sur les conditions d’accès aux études visées.'],'Les filières et procédures officielles seront précisées par l’administration du lycée.'),
+      tip('Préparer les examens',['Partir de la date de l’examen et reculer : un calendrier de révision par matière.','S’entraîner avec des sujets d’examens passés, chronomètre en main.','Résumer chaque chapitre sur une fiche d’une page.','Dormir suffisamment la veille.']),
+      tip('Vie scolaire',['Horaires, règlement intérieur et gestion des absences.'],'Informations à fournir par l’administration du lycée.'))),
+    sec(false,secHead('Ressources pour réviser'),h('a',{class:'btn',href:'#bibliotheque'},ic('book'),'Aller à la bibliothèque numérique'))
+  );
+};
+
+PAGES.bibliotheque=function(){
+  var f=F.lib, box=h('div',{class:'grid'}), count=h('p',{class:'res-count',role:'status'});
+  function match(r){
+    if(f.level&&r.level!==f.level) return false;
+    if(f.subject&&r.subject!==f.subject) return false;
+    if(f.type&&r.type!==f.type) return false;
+    if(f.q&&norm([r.title,r.subject,r.level,r.type].join(' ')).indexOf(norm(f.q))<0) return false;
+    return true;
+  }
+  function fill(){
+    var l=items('resources').filter(match);
+    count.textContent=l.length+(l.length>1?' documents':' document');
+    box.replaceChildren.apply(box,l.length?l.map(resCard):[empty('Aucun document ne correspond à ces filtres.')]);
+  }
+  function sel(id,label,opts,key){
+    return h('label',{class:'fld'},h('span',null,label),h('select',{id:id,onchange:function(e){f[key]=e.target.value;fill();}},
+      h('option',{value:''},'Tous'),opts.map(function(o){return h('option',{value:o,selected:f[key]===o},o);})));
+  }
+  fill();
+  return h('div',null,pageHead('Bibliothèque numérique','Cours, exercices, sujets et fiches de révision, classés par niveau et par matière.'),
+    sec(false,null,h('div',null,
+      h('div',{class:'filters'},
+        h('label',{class:'fld'},h('span',null,'Mot-clé'),h('input',{id:'lib-q',type:'search',value:f.q,placeholder:'Titre, matière…',oninput:function(e){f.q=e.target.value;fill();}})),
+        sel('lib-level','Classe',LEVELS,'level'),sel('lib-subject','Matière',SUBJECTS,'subject'),sel('lib-type','Type de document',TYPES,'type')),
+      count,box)));
+};
+
+PAGES['vie-scolaire']=function(){
+  var cats=[['Activités sportives','Football, athlétisme, tournois inter-classes.'],['Activités culturelles','Théâtre, musique, concours d’expression.'],['Cérémonies','Rentrée, remises de distinctions, fêtes.'],['Clubs et associations','Clubs d’élèves et associations du lycée.'],['Journées pédagogiques','Conférences, ateliers, journées thématiques.'],['Sorties et événements','Visites, voyages et rencontres.']];
+  var ev=upcoming();
+  var g=items('gallery');
+  return h('div',null,pageHead('Vie scolaire','Sport, culture, cérémonies et moments forts de l’année.'),
+    sec(false,secHead('Les rubriques de la vie du lycée','Descriptions provisoires, à compléter par l’établissement.'),h('div',{class:'grid'},cats.map(function(c){
+      return h('div',{class:'card'},h('span',{class:'tag'},'À compléter'),h('h3',null,c[0]),h('p',null,c[1]));}))),
+    sec(true,secHead('Événements à venir'),ev.length?h('ul',{class:'list'},ev.map(eventRow)):empty('Aucun événement à venir pour le moment.')),
+    sec(false,secHead('Galerie photos','Les photographies seront ajoutées par l’administration.'),h('div',{class:'gal'},g.map(function(x){
+      return h('figure',null,x.url?h('img',{src:x.url,alt:x.caption||'Photographie du lycée',loading:'lazy'}):h('div',{class:'ph'},ic('image')),h('figcaption',null,x.caption||'Sans légende'));})))
+  );
+};
+
+PAGES.projets=function(){
+  var list=items('projects');
+  var shown=list.filter(function(p){return F.proj==='Tous'||p.domain===F.proj;});
+  return h('div',null,pageHead('Projets & talents','Les élèves qui créent, innovent et s’engagent.'),
+    sec(false,null,h('div',null,
+      h('div',{class:'chips',role:'group','aria-label':'Domaines'},['Tous'].concat(DOMAINS).map(function(c){
+        return h('button',{class:'chip',type:'button','aria-pressed':String(F.proj===c),onclick:function(){F.proj=c;render(false);}},c);})),
+      shown.length?h('div',{class:'grid'},shown.map(projCard)):empty('Aucun projet dans ce domaine pour le moment.'))));
+};
+
+PAGES.contact=function(){
+  var C=SITE.contact, status=h('p',{class:'status',role:'status'});
+  var can=!!(C.whatsapp||C.email);
+  var btn=h('button',{class:'btn',type:'submit'},'Envoyer le message');
+  var form=h('form',{class:'aform',onsubmit:function(e){
+    e.preventDefault();
+    var el=form.elements, nm=el.nm.value.trim(), tx=el.tx.value.trim();
+    status.className='status';
+    if(!nm||!tx){status.className='status err';status.textContent='Indiquez votre nom et votre message.';return;}
+    if(!can){status.className='status err';status.textContent='L’envoi n’est pas encore activé sur ce site. Les coordonnées du lycée seront bientôt affichées.';return;}
+    var msg='Message de '+nm+' : '+tx;
+    if(C.whatsapp){window.open('https://wa.me/'+String(C.whatsapp).replace(/\D/g,'')+'?text='+encodeURIComponent(msg),'_blank','noopener');}
+    else{location.href='mailto:'+C.email+'?subject='+encodeURIComponent('Message depuis le site du lycée')+'&body='+encodeURIComponent(msg);}
+    status.textContent='Votre application va s’ouvrir pour envoyer le message.';
+  }},
+    h('label',{class:'fld'},h('span',null,'Nom'),h('input',{id:'c-nm',name:'nm',type:'text',required:true,autocomplete:'name'})),
+    h('label',{class:'fld'},h('span',null,'Message'),h('textarea',{id:'c-tx',name:'tx',rows:6,required:true})),
+    btn,status);
+  var has=C.address||C.phone||C.email||C.whatsapp;
+  var info=has?h('div',{class:'card'},h('h3',null,'Coordonnées du lycée'),
+      C.address&&h('p',null,C.address),C.phone&&h('p',null,'Téléphone : '+C.phone),C.email&&h('p',null,'E-mail : '+C.email),C.whatsapp&&h('p',null,'WhatsApp : '+C.whatsapp))
+    :prov('Coordonnées officielles','Adresse, téléphone, e-mail et horaires : à renseigner. Aucune coordonnée n’est inventée sur cette page.');
+  var socials=(C.social&&C.social.length)?h('div',{class:'card'},h('h3',null,'Réseaux sociaux'),C.social.map(function(x){return h('p',null,h('a',{href:x.url,target:'_blank',rel:'noopener'},x.name));}))
+    :prov('Réseaux sociaux officiels','Liens à ajouter lorsque les comptes officiels existent.');
+  var q=C.map||'Lycée de Ndande';
+  return h('div',null,pageHead('Contact','Écrire au lycée et trouver l’établissement.'),
+    sec(false,null,h('div',{class:'two'},
+      h('div',{class:'stack'},info,socials,
+        h('div',null,h('a',{class:'btn',href:'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q),target:'_blank',rel:'noopener'},ic('pin'),'Voir sur la carte'))),
+      form)));
+};
+
+/* ---------- recherche ---------- */
+function searchPage(q){
+  var n=norm(q), hits=[];
+  items('news').forEach(function(x){if(norm([x.title,x.body,x.category].join(' ')).indexOf(n)>=0) hits.push({k:'Actualité',t:x.title,s:x.category,href:'#article-'+x.id,ex:x.ex});});
+  items('events').forEach(function(x){if(norm([x.title,x.desc,x.place].join(' ')).indexOf(n)>=0) hits.push({k:'Événement',t:x.title,s:fmtDate(x.date),href:'#vie-scolaire',ex:x.ex});});
+  items('resources').forEach(function(x){if(norm([x.title,x.subject,x.level,x.type].join(' ')).indexOf(n)>=0) hits.push({k:'Document',t:x.title,s:[x.level,x.subject].filter(Boolean).join(' · '),href:'#bibliotheque',ex:x.ex});});
+  items('projects').forEach(function(x){if(norm([x.title,x.desc,x.domain,x.student].join(' ')).indexOf(n)>=0) hits.push({k:'Projet',t:x.title,s:x.domain,href:'#projets',ex:x.ex});});
+  NAV.forEach(function(x){if(norm(x[1]).indexOf(n)>=0) hits.push({k:'Rubrique',t:x[1],s:'',href:'#'+x[0]});});
+  return h('div',null,pageHead('Résultats de recherche','« '+q+' »'),
+    sec(false,null,hits.length?h('ul',{class:'list'},hits.map(function(x){
+      return h('li',null,h('a',{class:'card',href:x.href,onclick:function(){var same=location.hash===x.href;clearSearch();if(same) render(true);}},
+        h('div',{class:'meta'},h('span',{class:'tag'},x.k),x.ex&&exBadge()),h('h3',null,x.t),x.s&&h('p',null,x.s)));
+    })):empty('Aucun résultat pour cette recherche.')));
+}
+function clearSearch(){searchQ='';$('#searchInput').value='';}
+
+/* ---------- routage ---------- */
+var DEP={accueil:['news','events','resources','projects','hero'],actualites:['news'],article:['news'],eleves:['news'],bibliotheque:['resources'],'vie-scolaire':['events','gallery'],projets:['projects']};
+function cur(){
+  var x=(location.hash||'').slice(1)||'accueil';
+  if(x.indexOf('article-')===0) return {name:'article',arg:x.slice(8)};
+  return {name:PAGES[x]&&x!=='article'?x:'accueil',arg:null};
+}
+function markNav(name){
+  var active=name==='article'?'actualites':name;
+  document.querySelectorAll('#navList a').forEach(function(a){
+    if(a.getAttribute('href')==='#'+active) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+  });
+}
+function render(top){
+  var r=cur();
+  if(searchQ){app.replaceChildren(searchPage(searchQ));return;}
+  app.replaceChildren(PAGES[r.name](r.arg));
+  markNav(r.name);
+  if(top) window.scrollTo(0,0);
+}
+function refreshFor(k){
+  var r=cur();
+  if(searchQ) return;
+  if((DEP[r.name]||[]).indexOf(k)>=0) render(false);
+}
+
+var navList=$('#navList'), footNav=$('#footNav');
+NAV.forEach(function(x){
+  navList.append(h('li',null,h('a',{href:'#'+x[0]},x[1])));
+  footNav.append(h('li',null,h('a',{href:'#'+x[0]},x[1])));
+});
+$('#menuBtn').addEventListener('click',function(){
+  var n=$('#mainNav'), o=n.classList.toggle('open'); this.setAttribute('aria-expanded',String(o));
+});
+window.addEventListener('hashchange',function(){
+  clearSearch(); $('#mainNav').classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded','false'); render(true);
+});
+var st=null;
+$('#searchInput').addEventListener('input',function(e){
+  clearTimeout(st); var v=e.target.value;
+  st=setTimeout(function(){searchQ=v.trim().length>=2?v.trim():''; render(searchQ?true:false);},180);
+});
+$('#searchForm').addEventListener('submit',function(e){e.preventDefault();});
+COLS.forEach(function(k){DB[k]=(SITE[k]||[]).map(function(o,i){o=Object.assign({},o);o.id=o.id||(k+'-'+i);return o;}).sort(SORT[k]);});
+var fc=$('#footContact'); if(fc) fc.replaceWith(h('a',{href:'#contact'},'Nous écrire'));
+render(false);
+})();
+</script>
+</body>
+</html>
